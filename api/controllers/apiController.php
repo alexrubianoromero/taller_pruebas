@@ -139,10 +139,16 @@ class apiController
              {
                 $infoPropietario = $this->model->traerPropietarioPlaca($_REQUEST['placa']);
                 $infoVehiculo = $respuesta['datos'];
-                $this->ordenView->mostrarInfoPropietario($infoPropietario); 
-                $this->ordenView->mostrarInfoVehiculo($infoVehiculo); 
+                $respuesta['idPropietario'] = $infoPropietario['idcliente'];
+                // $this->ordenView->mostrarInfoPropietario($infoPropietario); 
+                // $this->ordenView->mostrarInfoVehiculo($infoVehiculo); 
+                echo json_encode($respuesta);
+                exit();
              }else {
-                echo 'No hay informacion de placa';
+                // echo 'No hay informacion de placa';
+                $respuesta['filas']==0;
+                echo json_encode($respuesta);
+                exit();
              }
             //  $verificacion['filas']=$respuesta['filas'];
             //  $verificacion['nombre']=$infoPropietario['nombre'];

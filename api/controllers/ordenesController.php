@@ -7,6 +7,7 @@
 $raiz = dirname(dirname(dirname(__file__)));
 // die($raiz);
 require_once($raiz.'/api/models/OrdenModel.php');  
+require_once($raiz.'/api/models/VehiculoModel.php');  
 // require_once($raiz.'/api/models/EmpresaModel.php');  
 // require_once($raiz.'/api/models/OrdenModel.php');  
 // require_once($raiz.'/api/models/IvaModel.php');  
@@ -17,6 +18,7 @@ require_once($raiz.'/api/views/ordenView.php');
 class ordenesController
 {
     protected $model;
+    protected $vehiculoModel;
     protected $view;
     // protected $modelEmpresa;
     // protected $ordenModel;
@@ -33,6 +35,7 @@ class ordenesController
     {
         // echo 'llego controlador api '; 
         $this->model = new OrdenModel();
+        $this->vehiculoModel = new VehiculoModel();
         // $this->modelEmpresa = new EmpresaModel();
         // $this->ordenModel = new OrdenModel();
         // $this->ivaModel = new IvaModel();
@@ -47,11 +50,25 @@ class ordenesController
             {
                 $this->view->formuCreacionNuevaOrden();
         }
+        if($_REQUEST['opcion']=='mostrarInfoPropietario')
+            {
+                $this->view->mostrarInfoPropietario($_REQUEST['idPropietario']);
+        }
+        if($_REQUEST['opcion']=='mostrarInfoVehiculo')
+        {
+                $infoVehiculo=  $this->vehiculoModel->traerInfoPlacaId($_REQUEST['idcarro']);
+                $this->view->mostrarInfoVehiculo($infoVehiculo);
+        }
+
         if($_REQUEST['opcion']=='mostrarInfoOrdenNuevo')
             {
                 // die('llego aca');
                 $this->view->mostrarInfoOrdenNuevo($_REQUEST['idOrden']);
         }
+        // if($_REQUEST['opcion']=='formuCrearOrdenApiNuevaVersion')
+        //     {
+        //         $this->view->formuCrearOrdenApiNuevaVersion($_REQUEST['idOrden']);
+        // }
         // if($_REQUEST['opcion']=='creacionOrdenNuevaForma')
         // {
         //     $this->creacionOrdenNuevaForma($_REQUEST['placa']);

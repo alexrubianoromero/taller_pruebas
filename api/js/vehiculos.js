@@ -7,7 +7,28 @@
 		http.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status ==200){
 				console.log(this.responseText);
-                 document.getElementById("informacionPropetario").innerHTML  = this.responseText;
+				  var  resp = JSON.parse(this.responseText); 
+                if(resp.filas >0)
+                {  
+					// alert(resp.filas);  
+					// document.getElementById("infoBusquedaPlaca").textContent = 'Vehiculo existe';
+					document.getElementById("indVerifPlaca").value= resp.filas;
+					document.getElementById("idPlacaCrearOrden").value= resp.datos.idcarro;
+					document.getElementById("btnCrearOrden").classList.remove('d-none');
+					mostrarInfoPropietario(resp.idPropietario);
+					mostrarInfoVehiculo(resp.datos.idcarro);
+				}else {
+					document.getElementById("infoBusquedaPlaca").textContent = 'No hay Info de este Vehiculo ';
+					document.getElementById("indVerifPlaca").value= 0;
+					document.getElementById("idPlacaCrearOrden").value= 0;
+					document.getElementById("btnCrearOrden").classList.add('d-none');
+					 document.getElementById("informacionPropetario").innerHTML  = '';
+					 document.getElementById("informacionVehiculo").innerHTML  = '';
+
+				}
+                //  document.getElementById("informacionPropetario").innerHTML  = this.responseText;
+				 //si la placa existe debe colar el id en algun input 
+
 			}
 		};
 		http.open("POST",url);
@@ -16,6 +37,7 @@
 			"opcion=verificarPlacaInfoCompleta"
 			+ "&placa="+placa
 		);
+
         traerHistorialPlaca(placa);
 	}
 
@@ -40,5 +62,7 @@
 			+ "&placa="+placa
 		);
 	}
+
+
 
 

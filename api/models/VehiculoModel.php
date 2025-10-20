@@ -29,6 +29,16 @@ class VehiculoModel extends Conexion
         $this->desconectar();
         return $results;
     }
+    public function traerInfoPlacaId($idVehiculo)
+    {
+        $sql = "select * from carros where idcarro = '".$idVehiculo."' ";
+        // die($sql);
+        $query = $this->connectMysql()->prepare($sql); 
+        $query -> execute(); 
+        $results = $query -> fetch(PDO::FETCH_ASSOC); 
+        $this->desconectar();
+        return $results;
+    }
     public function traerHistorialPlaca($placa)
     {
         $sql = "select * from ordenes where placa = '".$placa."' order by fecha desc ";

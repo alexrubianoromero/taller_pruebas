@@ -45,7 +45,8 @@ class ordenView
             </div>
             <div class="col-lg-5">
 
-                <input type="hidden" id ="indVerifPlaca" value=0>
+                <input type="text" id ="indVerifPlaca" value=0>
+                <input type="text" id ="idPlacaCrearOrden" value=0>
                 <div class="row"  style="border: 2px solid #333;padding:10px;">
                     <div class="col-lg-3">
                         <label>Placa:</label>
@@ -55,8 +56,11 @@ class ordenView
                         <label> </label><br>
                         <button  class="btn btn-secondary"  onclick="verificarPlacaInfoCompleta();">Verificar</button>
                     </div>
+                    <div class="col-lg-3">
+                        <label id="infoBusquedaPlaca"> </label>
+                    </div>
                     <div class="mt-3">
-                        <button class="btn btn-secondary">Crear Orden</button>
+                        <button id="btnCrearOrden" class="btn btn-secondary d-none" onclick="formuCrearOrdenApiNuevaVersion();">Crear Orden</button>
                     </div>
                 </div>
 
@@ -114,6 +118,10 @@ class ordenView
     }
     function mostrarInfoVehiculo($infoVehiculo)
     {
+    //       echo '<pre>'; 
+    // print_r($infoVehiculo);
+    // echo '</pre>';
+    // die();
         ?>
         <div class="row">
             <div class="col-lg-2">
