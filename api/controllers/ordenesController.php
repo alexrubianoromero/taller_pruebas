@@ -1,0 +1,109 @@
+<?php
+
+// echo 'llego hasta aca controlador';
+// echo '<pre>'; 
+// print_r($_REQUEST);
+// echo '</pre>';
+$raiz = dirname(dirname(dirname(__file__)));
+// die($raiz);
+require_once($raiz.'/api/models/OrdenModel.php');  
+// require_once($raiz.'/api/models/EmpresaModel.php');  
+// require_once($raiz.'/api/models/OrdenModel.php');  
+// require_once($raiz.'/api/models/IvaModel.php');  
+// require_once($raiz.'/api/models/ItemOrdenModel.php');  
+require_once($raiz.'/api/views/ordenView.php');  
+
+
+class ordenesController
+{
+    protected $model;
+    protected $view;
+    // protected $modelEmpresa;
+    // protected $ordenModel;
+    // protected $ivaModel;
+    // protected $itemModel;
+    // protected $itemView;
+
+    // echo 'llego hasta aca controlador';
+    // echo '<pre>'; 
+    // print_r($_REQUEST);
+    // echo '</pre>';
+    // die();
+    public function __construct()
+    {
+        // echo 'llego controlador api '; 
+        $this->model = new OrdenModel();
+        // $this->modelEmpresa = new EmpresaModel();
+        // $this->ordenModel = new OrdenModel();
+        // $this->ivaModel = new IvaModel();
+        // $this->itemModel = new ItemOrdenModel();
+        $this->view = new ordenView();
+
+        if($_REQUEST['opcion']=='pantallaModificarOrden')
+        {
+            $this->view->pantallaMOdificarOrden($_REQUEST['idorden']);
+        }
+        if($_REQUEST['opcion']=='formuCreacionNuevaOrden')
+            {
+                $this->view->formuCreacionNuevaOrden();
+        }
+        if($_REQUEST['opcion']=='mostrarInfoOrdenNuevo')
+            {
+                // die('llego aca');
+                $this->view->mostrarInfoOrdenNuevo($_REQUEST['idOrden']);
+        }
+        // if($_REQUEST['opcion']=='creacionOrdenNuevaForma')
+        // {
+        //     $this->creacionOrdenNuevaForma($_REQUEST['placa']);
+        // }
+        // if($_REQUEST['opcion']=='agregarItemNuevo')
+        // {
+        //     $this->agregarItemNuevo($_REQUEST);
+        // }
+    }
+    
+    
+    
+    public function agregarItemNuevo($request)
+    {
+        $this->itemModel->agregarItemNuevo($request);
+        //hacer el ajuste de inventario
+        
+        //mostrar otra vez los codigos
+        $this->itemView->mostrarItemsNuevo($request['idOrden']); 
+        
+    }
+
+    // public function verificarPlaca($placa)
+    // {
+    //         $respuesta = $this->model->verificarPlaca($placa);
+    //          if($respuesta['filas']>0)
+    //          {
+    //             $infoPropietario = $this->model->traerPropietarioPlaca($_REQUEST['placa']);
+    //          }
+    //          $verificacion['filas']=$respuesta['filas'];
+    //          $verificacion['nombre']=$infoPropietario['nombre'];
+    //          echo json_encode($verificacion);
+    //          exit();
+    // }
+
+    // public function creacionOrdenNuevaForma($placa)
+    // {
+    //     // echo 'llego hasta aca crear orden';
+    //     $infoEmpresa =    $this->modelEmpresa ->traerInfoEmpresa();
+    //     $contadorActual = $infoEmpresa['contaor'];
+    //     $siguienteNumero = $contadorActual+1;
+    //     $arrIva = $this->ivaModel->traerIva(); 
+    //     $this->modelEmpresa->actualizarContador($placa,$siguienteNumero); 
+    //     $this->ordenModel->crearOrden($placa,$siguienteNumero,$arrIva['iva']); 
+    //     $idMax = $this->ordenModel->traerIdMaxOrdenes();
+    //     // echo ('llego hasta aca nueva forma12345');
+    //     // die('maximo id'.$idMax) ;
+    //     echo json_encode($idMax);
+    //     exit();
+    // }
+
+
+}
+
+?>
