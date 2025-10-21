@@ -43,24 +43,26 @@ class ordenView
             <div class="mt-3">
                 <h3>Formulario de Creacion Nueva Orden</h3>
             </div>
-            <div class="col-lg-5">
+            <div id="div_izquierda" class="col-lg-4 me-3 mt-2" style="padding:5px;">
 
-                <input type="text" id ="indVerifPlaca" value=0>
-                <input type="text" id ="idPlacaCrearOrden" value=0>
+                <input type="hidden" id ="indVerifPlaca" value=0>
+                <input type="hidden" id ="idPlacaCrearOrden" value=0>
+
                 <div class="row"  style="border: 2px solid #333;padding:10px;">
-                    <div class="col-lg-3">
-                        <label>Placa:</label>
-                        <input class="form-control" type="text"  id="placa123"name="placa123" onkeyup="verifiquePlaca();" value ="ale123">
+                    <div class="col-lg-4 ">
+                        <!-- <label>Placa:</label> -->
+                        <input placeholder =" Placa"class="form-control fs-2"" type="text"  id="placa123"name="placa123" onkeyup="verifiquePlaca();" value ="ale123">
                     </div>
                     <div class="col-lg-3">
                         <label> </label><br>
-                        <button  class="btn btn-secondary"  onclick="verificarPlacaInfoCompleta();">Verificar</button>
+                        <button  class="btn btn-secondary btn-lg"   onclick="verificarPlacaInfoCompleta();">Verificar</button>
                     </div>
                     <div class="col-lg-3">
                         <label id="infoBusquedaPlaca"> </label>
                     </div>
-                    <div class="mt-3">
-                        <button id="btnCrearOrden" class="btn btn-secondary d-none" onclick="formuCrearOrdenApiNuevaVersion();">Crear Orden</button>
+                    <div class="mt-3  d-none d-flex" id="divBotonesSiExsite">
+                        <button id="btnCrearOrden" class="btn btn-secondary  " onclick="formuCrearOrdenApiNuevaVersion();">Formu Crear Nueva Orden</button>
+                        <button id="btnCrearOrden" class="btn btn-secondary  ms-auto" onclick="traerHistorialPlaca();">Ver Historial</button>
                     </div>
                 </div>
 
@@ -74,9 +76,9 @@ class ordenView
              
 
             </div>
-            <div class="col-lg-1" id="div del medio" > 
-            </div>
-            <div class="col-lg-5 mt-3" id="divHistorialPlaca" style="height:80vh;overflow-y:auto;border:2px solid #333;"> 
+            <!-- <div class="col-lg-1" id="div del medio" > 
+            </div> -->
+            <div class="col-lg-7 mt-3" id="divHistorialPlaca" style="height:80vh;overflow-y:auto;border:2px solid #333;"> 
             </div>
         </div>
           <?php $this->modalOrdenes();  ?>
@@ -147,11 +149,47 @@ class ordenView
         <?php
     }
 
+    public function formuCrearOrdenApiNuevaVersion($idPlaca)
+    {
+        ?>
+        <input type="hidden"   id="idPlaca"  value = "<?php   echo $idPlaca; ?>">
+        <div class="row">
+            <p class="fs-2 text-center">Formulario Creacion Nueva Orden</p>
+            <div class="col-lg-3">
+                <label>Kilometraje</label>  
+                <input class="form-control" type="text"   id="kilometraje" >
+            </div>
+            <div class="col-lg-6">
+                <label>Operario</label>  
+                <input class="form-control" type="text"   id="operario" >
+            </div>
+            <div class="mt-2">
+                <label>Trabajo a realizar</label>  
+                <textarea rows="5" class="form-control" id ="observaciones"></textarea>
+            </div>
+            <div class="mt-3 text-center">
+               <button  
+                    class="btn btn-primary btn-lg" 
+                     data-bs-toggle="modal" data-bs-target="#modalOrdenes"
+                    onclick ="crearNuevaOrdenNuevaVersion(<?php   echo $idPlaca; ?>);" 
+                >Crear Orden</button>
+            </div>
 
+        </div>
+      
+      <?php
+
+    }
+    public function pantallaModificarNueva($idOrden)
+    {
+        $infoOrden =  $this->model->traerOrdenId($idOrden);
+        $infoVehiculo =      $this->vehiculo->traerInfoPlaca($infoOrden['placa']);
+        $infoCliente =    $this->cliente->traerInfoCLienteId($infoVehiculo['propietario']);
+        echo 'buenas '.$idOrden;
+    }
 
     public function pantallaMOdificarOrden($idOrden)
     {
-        // echo 'pantallamodificar';
          $infoOrden =  $this->model->traerOrdenId($idOrden);
          $infoVehiculo =      $this->vehiculo->traerInfoPlaca($infoOrden['placa']);
          $infoCliente =    $this->cliente->traerInfoCLienteId($infoVehiculo['propietario']);
@@ -454,7 +492,18 @@ class ordenView
 
         <?php
     }
-
+    public function mostrarAvisoOrdenGrabada($idOrden)
+    {
+         $infoOrden =  $this->model->traerOrdenId($idOrden);
+        ?>
+        <div>
+            <p>Orden Grabada exitosamente</p>
+            <div>
+                <button class="btn btn-primary"  onclick="pantallaModificarNueva(<?php   echo $idOrden; ?>);">Agregar Items Orden</button>
+            </div>
+        </div>
+        <?php
+    }
 }
 
 ?>

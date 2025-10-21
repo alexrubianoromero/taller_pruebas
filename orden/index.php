@@ -23,8 +23,8 @@ session_start();
 		</header>
 		<nav>
 		<ul class="menu">
-	    <!-- <li><a href="muestreplacas2.php" class="menu">CREAR ORDEN DE TRABAJO</a></li> -->
-	    <li><a href="../api/ordenes.php?opcion=formuCreacionNuevaOrden" class="menu">CREAR ORDEN DE TRABAJO</a></li>
+			<li><a href="../api/ordenes.php?opcion=formuCreacionNuevaOrden" class="menu">CREAR ORDEN DE TRABAJO NUEVA</a></li>
+			<li><a href="muestreplacas2.php" class="menu">CREAR ORDEN DE TRABAJO</a></li>
 		  <li><a href="muestre_orden.php" class="menu">CONSULTAR ORDENES</a></li>
 		   <li><a href="../consultas/pregunte_placa.php" class="menu">CONSULTAR ORDENES NUEVA OPCION</a></li>
 		   <li><a href=../menu_principal.php   class="menu"  >MENU PRINCIPAL</a></li>

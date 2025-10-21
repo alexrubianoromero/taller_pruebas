@@ -8,7 +8,8 @@ $raiz = dirname(dirname(dirname(__file__)));
 // die($raiz);
 require_once($raiz.'/api/models/OrdenModel.php');  
 require_once($raiz.'/api/models/VehiculoModel.php');  
-// require_once($raiz.'/api/models/EmpresaModel.php');  
+require_once($raiz.'/api/models/EmpresaModel.php');  
+require_once($raiz.'/api/models/IvaModel.php');  
 // require_once($raiz.'/api/models/OrdenModel.php');  
 // require_once($raiz.'/api/models/IvaModel.php');  
 // require_once($raiz.'/api/models/ItemOrdenModel.php');  
@@ -18,9 +19,10 @@ require_once($raiz.'/api/views/ordenView.php');
 class ordenesController
 {
     protected $model;
+    protected $ivaModel;
     protected $vehiculoModel;
     protected $view;
-    // protected $modelEmpresa;
+    protected $modelEmpresa;
     // protected $ordenModel;
     // protected $ivaModel;
     // protected $itemModel;
@@ -35,15 +37,22 @@ class ordenesController
     {
         // echo 'llego controlador api '; 
         $this->model = new OrdenModel();
+        $this->ivaModel = new IvaModel();
         $this->vehiculoModel = new VehiculoModel();
-        // $this->modelEmpresa = new EmpresaModel();
+        $this->modelEmpresa = new EmpresaModel();
         // $this->ordenModel = new OrdenModel();
         // $this->ivaModel = new IvaModel();
         // $this->itemModel = new ItemOrdenModel();
         $this->view = new ordenView();
 
-        if($_REQUEST['opcion']=='pantallaModificarOrden')
+        if($_REQUEST['opcion']=='pantallaModificarNueva')
         {
+            // die('llego aca'.$_REQUEST['idorden']);
+            $this->view->pantallaModificarNueva($_REQUEST['idorden']);
+        }
+        if($_REQUEST['opcion']=='pantallaModificarOrden123')
+        {
+            // die('llego aca'.$_REQUEST['idorden']);
             $this->view->pantallaMOdificarOrden($_REQUEST['idorden']);
         }
         if($_REQUEST['opcion']=='formuCreacionNuevaOrden')
@@ -65,10 +74,14 @@ class ordenesController
                 // die('llego aca');
                 $this->view->mostrarInfoOrdenNuevo($_REQUEST['idOrden']);
         }
-        // if($_REQUEST['opcion']=='formuCrearOrdenApiNuevaVersion')
-        //     {
-        //         $this->view->formuCrearOrdenApiNuevaVersion($_REQUEST['idOrden']);
-        // }
+        if($_REQUEST['opcion']=='formuCrearOrdenApiNuevaVersion')
+            {
+                $this->view->formuCrearOrdenApiNuevaVersion($_REQUEST['idPlaca']);
+        }
+        if($_REQUEST['opcion']=='crearNuevaOrdenNuevaVersion')
+        {
+            $this->crearNuevaOrdenNuevaVersion($_REQUEST);
+        }
         // if($_REQUEST['opcion']=='creacionOrdenNuevaForma')
         // {
         //     $this->creacionOrdenNuevaForma($_REQUEST['placa']);
@@ -89,6 +102,27 @@ class ordenesController
         //mostrar otra vez los codigos
         $this->itemView->mostrarItemsNuevo($request['idOrden']); 
         
+    }
+
+
+    public function crearNuevaOrdenNuevaVersion($request)
+    {
+        $infoEmpresa =  $this->modelEmpresa->traerInfoEmpresa();
+        $sigNumeroOrden =  $infoEmpresa['contaor'] + 1;
+        $infoVehiculo =   $this->vehiculoModel->traerInfoPlacaId($request['idPlaca']); 
+        $iva = $this->ivaModel->traerIva(); 
+        $infoCreacionOrden['placa'] = $infoVehiculo['placa'];
+        $infoCreacionOrden['orden'] = $sigNumeroOrden;
+        $infoCreacionOrden['iva'] = $iva['iva'];
+        $this->model->crearNuevaOrdenNuevaVersion($infoCreacionOrden,$request);
+         $this->modelEmpresa->actualizarContador($infoVehiculo['placa'],$sigNumeroOrden) ;
+        // $this->model->actualizarNumeroOrden($request['idOrden'],$sigNumeroOrden);
+        // die('llegpo a creaR ORDEN1234');
+        $idMax=   $this->model->traerIdMaxOrdenes();
+        // die($idMax);
+        // echo json_encode($idMax);
+        // exit();
+        $this->view->mostrarAvisoOrdenGrabada($idMax);
     }
 
     // public function verificarPlaca($placa)

@@ -19,13 +19,5 @@ class ClienteModel extends Conexion
     }
 
 
-    // public function actualizarContador($placa,$nuevoContador)
-    // {
-    //     $sql = "update empresa 
-    //     set contaor = '".$nuevoContador."' 
-    //     ";
-    //     $query = $this->connectMysql()->prepare($sql); 
-    //     $query -> execute(); 
-    //     $this->desconectar();
-    // }
+   
 }

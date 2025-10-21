@@ -8,6 +8,7 @@ require_once($raiz.'/conexion/Conexion.php');
 class OrdenModel extends Conexion
 {
 
+    
     public function crearOrden($placa,$numeroOrden,$iva)
     {
         $verificar = $this->verificarNumeroOrden($numeroOrden);
@@ -16,6 +17,29 @@ class OrdenModel extends Conexion
             // die('llego al modelo');
             $sql = "insert into ordenes (placa,orden,iva,id_empresa,estado,tipo_orden) 
             values ( '".$placa."','".$numeroOrden."','".$iva."','2','0','1')";
+            // die($sql);
+            $query = $this->connectMysql()->prepare($sql); 
+            $results = $query -> fetch(PDO::FETCH_ASSOC); 
+            $query -> execute(); 
+            $this->desconectar();
+            // die('pasoo33345');
+        }
+    }
+
+
+    public function crearNuevaOrdenNuevaVersion($infoBasic,$request)
+    {
+        // die('llego al modelo');
+        $verificar = $this->verificarNumeroOrden($infoBasic['orden']);
+        if($verificar == 0)
+        {
+            // die('llego al modelo');
+            $sql = "insert into ordenes (placa,orden,iva,id_empresa,estado,tipo_orden,kilometraje,mecanico,observaciones) 
+            values ( '".$infoBasic['placa']."','".$infoBasic['orden']."','".$infoBasic['iva']."','2','0','1'
+            ,'".$request['kilometraje']."'
+            ,'".$request['operario']."'
+            ,'".$request['observaciones']."'
+            )";
             // die($sql);
             $query = $this->connectMysql()->prepare($sql); 
             $results = $query -> fetch(PDO::FETCH_ASSOC); 
@@ -79,6 +103,7 @@ class OrdenModel extends Conexion
         $this->desconectar();
     }
 
+   
 
 
 

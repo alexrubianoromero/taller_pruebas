@@ -14,14 +14,14 @@
 					// document.getElementById("infoBusquedaPlaca").textContent = 'Vehiculo existe';
 					document.getElementById("indVerifPlaca").value= resp.filas;
 					document.getElementById("idPlacaCrearOrden").value= resp.datos.idcarro;
-					document.getElementById("btnCrearOrden").classList.remove('d-none');
+					document.getElementById("divBotonesSiExsite").classList.remove('d-none');
 					mostrarInfoPropietario(resp.idPropietario);
 					mostrarInfoVehiculo(resp.datos.idcarro);
 				}else {
 					document.getElementById("infoBusquedaPlaca").textContent = 'No hay Info de este Vehiculo ';
 					document.getElementById("indVerifPlaca").value= 0;
 					document.getElementById("idPlacaCrearOrden").value= 0;
-					document.getElementById("btnCrearOrden").classList.add('d-none');
+					document.getElementById("divBotonesSiExsite").classList.add('d-none');
 					 document.getElementById("informacionPropetario").innerHTML  = '';
 					 document.getElementById("informacionVehiculo").innerHTML  = '';
 
@@ -38,12 +38,12 @@
 			+ "&placa="+placa
 		);
 
-        traerHistorialPlaca(placa);
+        // traerHistorialPlaca(idPlaca);
 	}
 
 
 
-	function traerHistorialPlaca(placa)
+	function traerHistorialPlaca(idPlaca)
 	{
         // alert('nueva opcion de verificar');
 		var placa =  document.getElementById("placa123").value;
@@ -59,7 +59,7 @@
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		http.send(
 			"opcion=traerHistorialPlaca"
-			+ "&placa="+placa
+			+ "&idPlaca="+idPlaca
 		);
 	}
 

@@ -39,7 +39,7 @@ class apiController
 
         if($_REQUEST['opcion']=='traerHistorialPlaca')
         {
-            $this->traerHistorialPlaca($_REQUEST['placa']);
+            $this->traerHistorialPlaca($_REQUEST['idPlaca']);
         }
         if($_REQUEST['opcion']=='verificarPlaca')
         {
@@ -73,9 +73,10 @@ class apiController
         }
     }
     
-    public function traerHistorialPlaca($placa)
+    public function traerHistorialPlaca($idPlaca)
     {
-        $historiales = $this->model->traerHistorialPlaca($placa);
+        $infoPlaca =  $this->model->traerInfoPlacaId($idPlaca);
+        $historiales = $this->model->traerHistorialPlaca($infoPlaca['placa']);
                     // echo '<pre>'; 
                     // print_r($historiales);
                     // echo '</pre>';
