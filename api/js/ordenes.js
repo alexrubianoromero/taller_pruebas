@@ -79,32 +79,63 @@ function formuCrearOrdenApiNuevaVersion()
 
 function crearNuevaOrdenNuevaVersion(idPlaca)
 {
-	    // var resp;
-		var kilometraje=  document.getElementById("kilometraje").value;
-		var operario=  document.getElementById("operario").value;
-		var observaciones=  document.getElementById("observaciones").value;
-		const http=new XMLHttpRequest();
-		const url = '../api/ordenes.php';
-		http.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status ==200){
-				console.log(this.responseText);
-				//   resp = JSON.parse(this.responseText); 
-				//   pantallaMOdificarOrden123(resp);	
-				//   alert(resp);
-                 document.getElementById("modalOrdenesBody").innerHTML  = this.responseText;
-			}
-		};
-		http.open("POST",url);
-		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		http.send(
-			"opcion=crearNuevaOrdenNuevaVersion"
-			+ "&idPlaca="+idPlaca
-			+ "&kilometraje="+kilometraje
-			+ "&operario="+operario
-			+ "&observaciones="+observaciones
-        );
+        var valida = validarCamposCrearOrden()
+		if(valida ==1)
+		{
+
+			var kilometraje=  document.getElementById("kilometraje").value;
+			var operario=  document.getElementById("operario").value;
+			var observaciones=  document.getElementById("observaciones").value;
+			const http=new XMLHttpRequest();
+			const url = '../api/ordenes.php';
+			http.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status ==200){
+					console.log(this.responseText);
+					//   resp = JSON.parse(this.responseText); 
+					//   pantallaMOdificarOrden123(resp);	
+					//   alert(resp);
+					document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
+					// traerHistorialPlaca();
+				}
+			};
+			http.open("POST",url);
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			http.send(
+				"opcion=crearNuevaOrdenNuevaVersion"
+				+ "&idPlaca="+idPlaca
+				+ "&kilometraje="+kilometraje
+				+ "&operario="+operario
+				+ "&observaciones="+observaciones
+			);
+		}
 	//mostrar la parte de modificacion de orden 
 }
+
+
+function validarCamposCrearOrden(){
+    if(document.getElementById("kilometraje").value == '')
+    {
+       alert("Digite kilometraje") ;  
+       document.getElementById("kilometraje").focus();
+       return 0;
+    }
+    if(document.getElementById("operario").value == '')
+    {
+       alert("Digite operario") ;  
+       document.getElementById("operario").focus();
+       return 0;
+    }
+    if(document.getElementById("observaciones").value == '')
+    {
+       alert("Digite observaciones") ;  
+       document.getElementById("observaciones").focus();
+       return 0;
+    }
+   
+	return 1;
+}
+
+
 function pantallaModificarNueva(idorden)
 {
 		const http=new XMLHttpRequest();

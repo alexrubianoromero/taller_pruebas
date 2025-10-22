@@ -41,7 +41,7 @@ class ordenView
       <body class="container">
         <div class="row">
             <div class="mt-3">
-                <h3>Formulario de Creacion Nueva Orden</h3>
+                <h3>ORDENES</h3>
             </div>
             <div id="div_izquierda" class="col-lg-4 me-3 mt-2" style="padding:5px;">
 
@@ -86,6 +86,7 @@ class ordenView
       </html>
       <script src="../api/js/vehiculos.js"></script>
       <script src="../api/js/ordenes.js"></script>
+      <script src="../api/js/items.js"></script>
       
       <?php
     }
@@ -170,7 +171,6 @@ class ordenView
             <div class="mt-3 text-center">
                <button  
                     class="btn btn-primary btn-lg" 
-                     data-bs-toggle="modal" data-bs-target="#modalOrdenes"
                     onclick ="crearNuevaOrdenNuevaVersion(<?php   echo $idPlaca; ?>);" 
                 >Crear Orden</button>
             </div>
@@ -185,8 +185,98 @@ class ordenView
         $infoOrden =  $this->model->traerOrdenId($idOrden);
         $infoVehiculo =      $this->vehiculo->traerInfoPlaca($infoOrden['placa']);
         $infoCliente =    $this->cliente->traerInfoCLienteId($infoVehiculo['propietario']);
-        echo 'buenas '.$idOrden;
+        // echo 'buenas '.$idOrden;
+        ?>
+         <div >
+                <table border = "1">
+                    <tr>
+                        <td colspan="2" rowspan="4"></td>
+                        <td colspan="2"><h3>ORDEN DE TRABAJO</h3></td>
+                        <td >
+                            <input onfocus="blur();"  name="orden" id = "orden" type="text" size="20" value = "<? echo $infoOrden['orden']  ?>"  >
+                            <input name="idOrden" id = "idOrden"  type="hidden" size="20" value = "<? echo $_REQUEST['idOrden']  ?>"  >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><div align="center">NIT 8300507711-7 </div></td>
+                        <td>CLAVE</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><div align="center">TELS 4056244/3114977845 </div></td>
+                        <td><input name="clave" id = "clave" type="text" size="20" ></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><div align="center">CRA 53 # 5B-69 </div></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td width="85">FECHA</td>
+                        <td colspan="2"><input onfocus="blur();" size=10 name=fecha id = "fecha"  value= <? echo $infoOrden['fecha']  ;?>></td>
+                        <td width="123">MARCA</td>
+                        <td width="141"><input onfocus="blur();" name="marca" id = "marca" type="text"  value = "<? echo $infoVehiculo['marca']  ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>NOMBRE</td>
+                        <td colspan="2"><input onfocus="blur();" name="nombre"  id = "nombre" type="text"  value = "<?php echo $infoCliente['nombre']; ?> "></td>
+                        <td>TIPO</td>
+                        <td><input  onfocus="blur();" name="tipo" type="text"  value = "<? echo $infoVehiculo['tipo']  ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>CC/NIT</td>
+                        <td colspan="2"><input  onfocus="blur();"  name="identificacion" type="text"  value = "<?php echo $infoCliente['identi']; ?> "></td>
+                        <td>MODELO</td>
+                        <td><input  onfocus="blur();" name="modelo" type="text"  value = "<? echo $infoVehiculo['modelo']  ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>DIRECCION</td>
+                        <td colspan="2"><input  onfocus="blur();" name="direccion" type="text" size="50" value = "<? echo $infoCliente['direccion']  ?>"  ></td>
+                        <td>PLACA</td>
+                        <td><input  onfocus="blur();"  name="placa" id = "placa" type="text" size="10" value = "<? echo $infoVehiculo['placa']  ?>"  ></td>
+                    </tr>
+                    <tr>
+                        <td>TELEFONO</td>
+                        <td colspan="2"><input  onfocus="blur();"  name="telefono" type="text" size="40" value = "<? echo $infoCliente['telefono']  ?>"></td>
+                        <td>COLOR</td>
+                        <td><input   onfocus="blur();" name="color" type="text" size="20" value = "<? echo $infoVehiculo['color']  ?>" ></td>
+                    </tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                    <td>KILOMETRAJE</td>
+                    <td><input name="kilometraje"  id = "kilometraje"  type="text" size="20" value = "<? echo $infoOrden['kilometraje']  ?>" ></td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                    <td>OPERARIO</td>
+                    <td><input name="mecanico"   id = "mecanico"  type="text" size="20" value = "<? echo $infoOrden['mecanico']  ?>" ></td></tr>
+                    <tr>
+                     <tr>
+                    <td colspan="11"><div align="center">TRABAJO A REALIZAR </div></td>
+                    </tr>
+                    <tr>
+                        <td height="80" colspan="11">
+                        <textarea class="form-control"  name="descripcion"  id = "descripcion" cols="90" rows="4"> <?php  echo $infoOrden['observaciones']?></textarea>
+                        </td>
+                    </tr>
+                    </table>
+
+                </div>
+                   <div class="mt-3">
+                        <?php   
+                             $this->itemView->mostrarItemsNuevo($_REQUEST['idorden']); 
+                        ?>
+                </div>
+                  <div class="mt-3">
+                        <?php   
+                             $this->parteIventarioBasico($infoOrden); 
+                        ?>
+
+                </div>
+
+
+        <?php
     }
+ ///////////////////////////////////////////////////////////////////////////
+
+
+
+
 
     public function pantallaMOdificarOrden($idOrden)
     {
@@ -500,6 +590,17 @@ class ordenView
             <p>Orden Grabada exitosamente</p>
             <div>
                 <button class="btn btn-primary"  onclick="pantallaModificarNueva(<?php   echo $idOrden; ?>);">Agregar Items Orden</button>
+            </div>
+        </div>
+        <?php
+    }
+    public function mostrarAvisoVerHistorial()
+    {
+        ?>
+        <div>
+            <p>Orden Grabada exitosamente</p>
+            <div>
+                <button class="btn btn-primary"  onclick="traerHistorialPlaca();">Ver historial </button>
             </div>
         </div>
         <?php

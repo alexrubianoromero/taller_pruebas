@@ -122,7 +122,9 @@ class ordenesController
         // die($idMax);
         // echo json_encode($idMax);
         // exit();
-        $this->view->mostrarAvisoOrdenGrabada($idMax);
+        // $this->view->mostrarAvisoOrdenGrabada($idMax);
+        $this->view->mostrarAvisoVerHistorial();
+
     }
 
     // public function verificarPlaca($placa)
