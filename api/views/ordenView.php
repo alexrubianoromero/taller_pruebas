@@ -49,7 +49,7 @@ class ordenView
                 <input type="hidden" id ="idPlacaCrearOrden" value=0>
 
                 <div class="row"  style="border: 2px solid #333;padding:10px;">
-                    <div class="col-lg-4 ">
+                    <div class="col-lg-5">
                         <!-- <label>Placa:</label> -->
                         <input placeholder =" Placa"class="form-control fs-2"" type="text"  id="placa123"name="placa123" onkeyup="verifiquePlaca();" value ="ale123">
                     </div>
@@ -571,7 +571,19 @@ class ordenView
         $infoOrden = $this->model->traerOrdenId($idOrden);
         // $items = $this->itemView->mostrarSoloItems($idOrden);
         ?>
-        <div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Fecha:</label>
+                <label><?php  echo $infoOrden['fecha'] ?></label>
+            </div>
+            <div class="col-lg-3">
+                <label>Kilometraje:</label>
+                <label><?php  echo $infoOrden['kilometraje'] ?></label>
+            </div>
+            <div class="col-lg-3">
+                <span>Operario:</span>
+                <label><?php  echo $infoOrden['mecanico'] ?></label>
+            </div>
             <div class="mt-3">
                 <textarea class="form-control"><?php   echo $infoOrden['observaciones'];  ?></textarea>
             </div>
