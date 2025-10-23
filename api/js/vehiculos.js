@@ -26,6 +26,8 @@
 					 document.getElementById("informacionPropetario").innerHTML  = '';
 					 document.getElementById("informacionVehiculo").innerHTML  = '';
 					 document.getElementById("divHistorialPlaca").innerHTML  = '';
+					 //debe preguntar la info del propietario
+					 pantallaCrearEscojerCliente();
 
 				}
                 //  document.getElementById("informacionPropetario").innerHTML  = this.responseText;
@@ -62,6 +64,25 @@
 		http.send(
 			"opcion=traerHistorialPlaca"
 			+ "&idPlaca="+idPlaca
+		);
+	}
+
+
+	function pantallaFormuVehiculo(idCliente)
+	{
+		const http=new XMLHttpRequest();
+		const url = '../api/vehiculos.php';
+		http.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status ==200){
+				console.log(this.responseText);
+                 document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
+			}
+		};
+		http.open("POST",url);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		http.send(
+			"opcion=pantallaFormuVehiculo"
+			+ "&idCliente="+idCliente
 		);
 	}
 

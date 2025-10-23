@@ -87,6 +87,7 @@ class ordenView
       <script src="../api/js/vehiculos.js"></script>
       <script src="../api/js/ordenes.js"></script>
       <script src="../api/js/items.js"></script>
+      <script src="../api/js/clienteApi.js"></script>
       
       <?php
     }
