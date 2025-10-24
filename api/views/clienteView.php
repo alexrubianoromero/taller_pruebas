@@ -61,7 +61,35 @@ class clienteView
 
     public function fomularioNuevoCLiente()
     {
-        echo 'formu nuevo cliente';
+        ?>
+        <div class="row mt-2">
+            <p>Nuevo Propietario:</p>
+            <div class="col-lg-3">
+                <label>Identidad:</label>
+                <input type="text" class="form-control" id="identi">
+            </div>
+            <div class="col-lg-8">
+                <label>Nombre:</label>
+                <input type="text" class="form-control" id="nombre">
+            </div>
+            <div class="col-lg-3">
+                <label>Telefono:</label>
+                <input type="text" class="form-control" id="telefono">
+            </div>
+            <div class="col-lg-6">
+                <label>Direccion:</label>
+                <input type="text" class="form-control" id="direccion">
+            </div>
+            <div class="col-lg-6">
+                <label>Email:</label>
+                <input type="text" class="form-control" id="email">
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-primary w-100" onclick="registrarCLienteNUevoApi();">Registrar</button>
+            </div>
+        </div>
+
+        <?php
     }
 
 }

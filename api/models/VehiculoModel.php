@@ -61,6 +61,27 @@ class VehiculoModel extends Conexion
         $this->desconectar();
         return $results;
     }
+
+    public function registrarVehiculoNuevoApi($request)
+    {
+        $sql = "insert into carros (placa,marca,tipo,color,modelo,propietario) 
+        values(
+        '".$request['placa']."'
+        ,'".$request['marca']."'
+        ,'".$request['tipo']."'
+        ,'".$request['color']."'
+        ,'".$request['modelo']."'
+        ,'".$request['idCliente']."'
+        )";
+        // die($sql);
+        $query = $this->connectMysql()->prepare($sql); 
+        $query -> execute(); 
+        // $results = $query -> fetch(PDO::FETCH_ASSOC); 
+        $this->desconectar();
+        // return $results;
+    }
+
+
 }
 
 

@@ -2,14 +2,14 @@
 
 $raiz = dirname(dirname(dirname(__file__)));
 // die($raiz);
-// require_once($raiz.'/api/models/ClienteModel.php');  
+require_once($raiz.'/api/models/ClienteModel.php');  
 
 
 class vehiculoView
 {
     protected $model;
     // protected $vehiculo;
-    // protected $cliente;
+    protected $cliente;
     // protected $itemView;
     // protected $itemModel;
 
@@ -17,7 +17,7 @@ class vehiculoView
     {
         // $this->model = new ClienteModel();
         // $this->vehiculo = new VehiculoModel();
-        // $this->cliente = new ClienteModel();
+        $this->cliente = new ClienteModel();
         // $this->itemView = new itemOrdenView();
         // $this->itemModel = new ItemOrdenModel();
     }
@@ -56,6 +56,45 @@ class vehiculoView
                 echo '</tr>';
             }
         echo '</table>';
+    }
+
+    public function formuCreacionVehiculoIdCliente($idCliente)
+    {
+        $infoCliente =  $this->cliente->traerInfoCLienteId($idCliente); 
+        ?>
+        <div class="row mt-3">
+            <input type="hidden"  id="idCliente" value = "<?php  echo $idCliente; ?>">
+            <div class="">
+                  <div class="col-lg-3">
+                    <label>Nombre Propietario: <?php   echo  $infoCliente['nombre']; ?></label>
+                </div>
+            </div>
+           <div class="col-lg-3">
+                <label>Placa:</label>
+                <input type="text" class="form-control" id="placa">
+            </div>
+           <div class="col-lg-3">
+                <label>Marca:</label>
+                <input type="text" class="form-control" id="marca">
+            </div>
+           <div class="col-lg-3">
+                <label>Tipo:</label>
+                <input type="text" class="form-control" id="tipo">
+            </div>
+            <div class="col-lg-3">
+                 <label>Color:</label>
+                 <input type="text" class="form-control" id="color">
+             </div>
+           <div class="col-lg-3">
+                <label>modelo:</label>
+                <input type="text" class="form-control" id="modelo">
+            </div>
+              <div class="mt-4">
+                <button class="btn btn-primary w-100" onclick="registrarVehiculoNuevoApi();">Registrar</button>
+            </div>
+        </div>
+
+        <?php
     }
 
 }

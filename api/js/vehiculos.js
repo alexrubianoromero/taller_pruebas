@@ -66,6 +66,36 @@
 			+ "&idPlaca="+idPlaca
 		);
 	}
+	function registrarVehiculoNuevoApi()
+	{
+
+		// alert('llega a al vehiculos js123');
+		var idCliente =  document.getElementById("idCliente").value;
+		var placa =  document.getElementById("placa").value;
+		var marca =  document.getElementById("marca").value;
+		var tipo =  document.getElementById("tipo").value;
+		var modelo =  document.getElementById("modelo").value;
+		var color =  document.getElementById("color").value;
+		const http=new XMLHttpRequest();
+		const url = '../api/vehiculos.php';
+		http.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status ==200){
+				console.log(this.responseText);
+                 document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
+			}
+		};
+		http.open("POST",url);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		http.send(
+			"opcion=registrarVehiculoNuevoApi"
+			+ "&idCliente="+idCliente
+			+ "&placa="+placa
+			+ "&marca="+marca
+			+ "&tipo="+tipo
+			+ "&modelo="+modelo
+			+ "&color="+color
+		);
+	}
 
 
 	function pantallaFormuVehiculo(idCliente)
