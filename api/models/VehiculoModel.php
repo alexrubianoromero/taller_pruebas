@@ -39,6 +39,18 @@ class VehiculoModel extends Conexion
         $this->desconectar();
         return $results;
     }
+    public function traerVehiculosIdCliente($idCliente)
+    {
+        $sql = "select * from carros where propietario = '".$idCliente."' ";
+        // die($sql);
+        $query = $this->connectMysql()->prepare($sql); 
+        $query -> execute(); 
+        $results = $query -> fetch(PDO::FETCH_ASSOC); 
+        $this->desconectar();
+        return $results;
+    }
+
+
     public function traerHistorialPlaca($placa)
     {
         $sql = "select * from ordenes where placa = '".$placa."' order by fecha desc ";
@@ -80,6 +92,20 @@ class VehiculoModel extends Conexion
         $this->desconectar();
         // return $results;
     }
+
+        public function traerUltimoIdVehiculos()
+        {
+            $sql ="select max(idcarro) as maxId from carros";
+            $query = $this->connectMysql()->prepare($sql); 
+            $query -> execute(); 
+            $results = $query -> fetch(PDO::FETCH_ASSOC); 
+            $this->desconectar();
+            $maxId = $results['maxId'];
+            return $maxId;
+        }
+
+
+
 
 
 }

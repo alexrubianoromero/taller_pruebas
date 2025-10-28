@@ -2,7 +2,7 @@
 
 $raiz = dirname(dirname(dirname(__file__)));
 // die($raiz);
-// require_once($raiz.'/api/models/ClienteModel.php');  
+require_once($raiz.'/api/models/ClienteModel.php');  
 
 
 class clienteView
@@ -21,7 +21,21 @@ class clienteView
         // $this->itemView = new itemOrdenView();
         // $this->itemModel = new ItemOrdenModel();
     }
+    public function muestreInfoLCienteId($idCliente)
+    {
+       $infoCliente =  $this->model->traerInfoCLienteId($idCliente);
+      ?>
+      <div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Nombre: <?php echo $infoCliente['nombre'] ; ?></label>
 
+            </div>
+        </div>
+        <div></div>
+      </div>
+      <?php
+    }
     public function pantallaCrearEscojerCliente()
     {
       ?>
@@ -51,7 +65,8 @@ class clienteView
         foreach($clientes as $cliente) 
             {
                 echo '<tr>';
-                echo '<td><button class="btn btn-primary mt-3" onclick="escogerClienteApi('.$cliente['idcliente'].')">'.$cliente['nombre'].'</button></td>';
+                // echo '<td><button class="btn btn-primary mt-3" onclick="escogerClienteApi('.$cliente['idcliente'].')">'.$cliente['nombre'].'</button></td>';
+                echo '<td><button class="btn btn-primary mt-3" onclick="formuCreacionVehiculoIdCliente('.$cliente['idcliente'].')">'.$cliente['nombre'].'</button></td>';
                 // echo '<td>'.$cliente['telefono'].'</td>';  
                 echo '</tr>';
             }

@@ -56,26 +56,31 @@
 			+ "&nombre="+nombre
 		);
 	}
+
+
 	function escogerClienteApi(idCliente)
 	{
-        // alert('nueva opcion de verificar');
-		// var nombre =  document.getElementById("buscarNombreCLiente").value;
+     
 		const http=new XMLHttpRequest();
 		const url = '../api/clientes.php';
 		http.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status ==200){
 				console.log(this.responseText);
                  document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
-				 pantallaFormuVehiculo(idCliente);
+				//  pantallaFormuVehiculo(idCliente);
 			}
 		};
 		http.open("POST",url);
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		http.send(
-			"opcion=buscarNombreLCienteApiCLientes"
+			"opcion=escogerClienteApi"
 			+ "&idCliente="+idCliente
 		);
 	}
+
+
+
+
 	function registrarCLienteNUevoApi()
 	{
         // alert('nueva opcion de verificar');
@@ -94,7 +99,7 @@
 				if(this.readyState == 4 && this.status ==200){
 					console.log(this.responseText);
 					document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
-					// pantallaFormuVehiculo(idCliente);
+					pantallaFormuVehiculo(idCliente);
 				}
 			};
 			http.open("POST",url);

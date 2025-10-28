@@ -3,13 +3,16 @@
 $raiz = dirname(dirname(dirname(__file__)));
 // die($raiz);
 require_once($raiz.'/api/models/ClienteModel.php');  
+require_once($raiz.'/api/views/clienteView.php');  
+require_once($raiz.'/api/models/VehiculoModel.php');  
 
 
 class vehiculoView
 {
     protected $model;
-    // protected $vehiculo;
+    protected $vehiculo;
     protected $cliente;
+    protected $clienteView;
     // protected $itemView;
     // protected $itemModel;
 
@@ -18,6 +21,8 @@ class vehiculoView
         // $this->model = new ClienteModel();
         // $this->vehiculo = new VehiculoModel();
         $this->cliente = new ClienteModel();
+        $this->vehiculo = new VehiculoModel();
+        $this->clienteView = new clienteView();
         // $this->itemView = new itemOrdenView();
         // $this->itemModel = new ItemOrdenModel();
     }
@@ -64,9 +69,10 @@ class vehiculoView
         ?>
         <div class="row mt-3">
             <input type="hidden"  id="idCliente" value = "<?php  echo $idCliente; ?>">
-            <div class="">
-                  <div class="col-lg-3">
-                    <label>Nombre Propietario: <?php   echo  $infoCliente['nombre']; ?></label>
+            <div class="mb-3">
+                  <div class="">
+                    <label>Nombre Propietario:</label>
+                    <label class="fw-bold"> <?php   echo  $infoCliente['nombre']; ?></label>
                 </div>
             </div>
            <div class="col-lg-3">
@@ -95,6 +101,12 @@ class vehiculoView
         </div>
 
         <?php
+    }
+
+    public function mostrarVehiculosCLiente($idCliente)
+    {
+          $this->clienteView->muestreInfoLCienteId($idCliente); 
+
     }
 
 }

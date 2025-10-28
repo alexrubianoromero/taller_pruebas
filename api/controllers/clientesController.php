@@ -10,6 +10,7 @@ $raiz = dirname(dirname(dirname(__file__)));
 require_once($raiz.'/api/models/ClienteModel.php');  
 require_once($raiz.'/api/views/clienteView.php');  
 require_once($raiz.'/api/views/vehiculoView.php');  
+require_once($raiz.'/api/models/VehiculoModel.php');  
 
 
 class clientesController 
@@ -17,6 +18,7 @@ class clientesController
     protected $model;
     protected $view;
     protected $vehiculoView;
+    protected $vehiculoModel;
 
      public function __construct()
     {
@@ -24,6 +26,7 @@ class clientesController
         $this->model = new ClienteModel();
         $this->view = new clienteView();
         $this->vehiculoView = new vehiculoView();
+        $this->vehiculoModel = new VehiculoModel();
 
 
          if($_REQUEST['opcion']=='pruebadesdeClientes')
@@ -31,10 +34,12 @@ class clientesController
             // $this->view->pantallaCrearEscojerCliente();
             echo 'prueba desde clientes ';
         }
+
          if($_REQUEST['opcion']=='pantallaCrearEscojerCliente')
         {
             $this->view->pantallaCrearEscojerCliente();
         }
+
          if($_REQUEST['opcion']=='fomularioNuevoCLiente')
         {
             $this->view->fomularioNuevoCLiente();
@@ -44,6 +49,12 @@ class clientesController
         {
             $clientes = $this->model->traerClientesFiltroNOmbre($_REQUEST['nombre']);
             $this->view->buscarNombreLCienteApiCLientes($clientes);
+        }
+         if($_REQUEST['opcion']=='escogerClienteApi')
+        {
+            // $clientes = $this->model->traerClientesFiltroNOmbre($_REQUEST['nombre']);
+            // $this->view->buscarNombreLCienteApiCLientes($clientes);
+            $this->vehiculoView->mostrarVehiculosCLiente($_REQUEST['idCliente']);
         }
          if($_REQUEST['opcion']=='registrarCLienteNUevoApi')
         {
