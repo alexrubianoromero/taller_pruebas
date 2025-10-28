@@ -56,12 +56,21 @@ class clientesController
             // $this->view->buscarNombreLCienteApiCLientes($clientes);
             $this->vehiculoView->mostrarVehiculosCLiente($_REQUEST['idCliente']);
         }
+
          if($_REQUEST['opcion']=='registrarCLienteNUevoApi')
         {
             $clientes = $this->model->registrarCLienteNUevoApi($_REQUEST);
             $maxId = $this->model->traerUltimoId();
             //pantalla vehiculo con idcliente
             $this->vehiculoView->formuCreacionVehiculoIdCliente($maxId); 
+        }
+
+         if($_REQUEST['opcion']=='traerUltimoIdCliente')
+        {
+            $maxId = $this->model->traerUltimoId();
+            echo json_encode($maxId);
+            exit();
+            // $this->vehiculoView->formuCreacionVehiculoIdCliente($maxId); 
         }
     }
 

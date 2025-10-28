@@ -76,6 +76,7 @@
 			"opcion=escogerClienteApi"
 			+ "&idCliente="+idCliente
 		);
+
 	}
 
 
@@ -99,7 +100,6 @@
 				if(this.readyState == 4 && this.status ==200){
 					console.log(this.responseText);
 					document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
-					pantallaFormuVehiculo(idCliente);
 				}
 			};
 			http.open("POST",url);
@@ -113,7 +113,34 @@
 				+ "&email="+email
 			);
 		} 
+
+		pantallaFormuVehiculo(idCliente);
 	}
+
+	function traerUltimoIdCliente()
+	{
+		var resp;
+		const http=new XMLHttpRequest();
+		const url = '../api/clientes.php';
+		http.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status ==200){
+				console.log(this.responseText);
+				resp = JSON.parse(this.responseText);
+				// alert(resp);
+				return resp;
+                //  document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
+				//  pantallaFormuVehiculo(idCliente);
+			}
+		};
+		http.open("POST",url);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		http.send(
+			"opcion=traerUltimoIdCliente"
+		);
+		// return resp;
+	}
+
+
 
 	function verificaInfoLCienteApi()
 	{
