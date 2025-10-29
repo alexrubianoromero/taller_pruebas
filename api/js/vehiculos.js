@@ -66,13 +66,15 @@
 			+ "&idPlaca="+idPlaca
 		);
 	}
+
+
+
 	function registrarVehiculoNuevoApi()
 	{
 		var valida = validarCamposCrearVehiculo();
 		if(valida)
 		{
 
-			// alert('llega a al vehiculos js123');
 			var idCliente =  document.getElementById("idCliente").value;
 			var placa =  document.getElementById("placa").value;
 			var marca =  document.getElementById("marca").value;
@@ -85,10 +87,12 @@
 				if(this.readyState == 4 && this.status ==200){
 					console.log(this.responseText);
 					document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
-					//aqui podria utilizar las funciones 
-					//recibiendo la info por ajax de
-					//  mostrarInfoPropietario(resp.idPropietario);
-					// 	mostrarInfoVehiculo(resp.datos.idcarro);
+
+					traerUltimoIdVehiculos(function(idVehiculo) {
+						mostrarInfoVehiculo(idVehiculo);
+					});
+
+
 				}
 			};
 			http.open("POST",url);
@@ -102,13 +106,30 @@
 				+ "&modelo="+modelo
 				+ "&color="+color
 			);
-			//llamar una funcion que me devuelva la info del ultimo vehiculo grabado
-			//y con base en eso pinte la info de cliente y vehiculo
-			// mostrarInfoPropietario(idPropietario);
-			// mostrarInfoVehiculo(idPlaca);
 		}
-
 	}
+
+	function traerUltimoIdVehiculos(callback)
+	{
+		var resp;
+		const http=new XMLHttpRequest();
+		const url = '../api/vehiculos.php';
+		http.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status ==200){
+				console.log(this.responseText);
+				resp = JSON.parse(this.responseText);
+				callback(resp);
+			}
+		};
+		http.open("POST",url);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		http.send(
+			"opcion=traerUltimoIdVehiculos"
+		);
+	}
+
+
+
 	function validarCamposCrearVehiculo()
 	{
 			if(document.getElementById("placa").value == '')

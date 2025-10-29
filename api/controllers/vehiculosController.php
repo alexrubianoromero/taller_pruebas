@@ -39,11 +39,19 @@ class vehiculosController
             $idCarro = $this->model->traerUltimoIdVehiculos();
               $this->ordenView->formuCrearOrdenApiNuevaVersion($idCarro);
         }
+         if($_REQUEST['opcion']=='traerUltimoIdVehiculos')
+        {
+            $idCarro = $this->model->traerUltimoIdVehiculos();
+            echo json_encode($idCarro);
+            // exit();
+        }
 
         if($_REQUEST['opcion']=='formuCreacionVehiculoIdCliente')
         {
             $this->view->formuCreacionVehiculoIdCliente($_REQUEST['idCliente']);
         }
+
+
 
 
         

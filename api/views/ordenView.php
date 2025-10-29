@@ -99,19 +99,19 @@ class ordenView
                 <label class="fw-bold">Identidad:</label>    
                 <label><?php   echo $infoPropietario['identi']; ?></label>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-10">
                 <label class="fw-bold">Nombre:</label>    
                 <label><?php   echo $infoPropietario['nombre']; ?></label>
-            </div>
-            <div class="col-lg-2">
-                <label class="fw-bold">Direccion:</label>    
-                <label><?php   echo $infoPropietario['direccion']; ?></label>
             </div>
             <div class="col-lg-2">
                 <label class="fw-bold">Telefono:</label>    
                 <label><?php   echo $infoPropietario['telefono']; ?></label>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-5">
+                <label class="fw-bold">Direccion:</label>    
+                <label><?php   echo $infoPropietario['direccion']; ?></label>
+            </div>
+            <div class="col-lg-5">
                 <label class="fw-bold">Email:</label>    
                 <label><?php   echo $infoPropietario['email']; ?></label>
             </div>
@@ -127,7 +127,7 @@ class ordenView
     // echo '</pre>';
     // die();
         ?>
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-lg-2">
                 <label class="fw-bold">Placa:</label>    
                 <label><?php   echo $infoVehiculo['placa']; ?></label>
@@ -151,12 +151,20 @@ class ordenView
         <?php
     }
 
+
     public function formuCrearOrdenApiNuevaVersion($idPlaca)
     {
+         $infoPlaca =  $this->vehiculo->traerInfoPlacaId($idPlaca);
+         $infoCliente =    $this->cliente->traerInfoCLienteId($infoPlaca['propietario']);
         ?>
         <input type="hidden"   id="idPlaca"  value = "<?php   echo $idPlaca; ?>">
-        <div class="row">
-            <p class="fs-2 text-center">Formulario Creacion Nueva Orden</p>
+        <p class="fs-2 text-center">Formulario Creacion Nueva Orden</p>
+         <?php 
+
+            $this->mostrarInfoPropietario($infoCliente);
+            $this->mostrarInfoVehiculo($idPlaca); 
+        ?>
+        <div class="row mt-2">
             <div class="col-lg-3">
                 <label>Kilometraje</label>  
                 <input class="form-control" type="text"   id="kilometraje" >
