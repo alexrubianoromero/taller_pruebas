@@ -43,12 +43,12 @@ class ordenView
             <div class="mt-3">
                 <h3>ORDENES</h3>
             </div>
-            <div id="div_izquierda" class="col-lg-4 me-3 mt-2" style="padding:5px;">
+            <div id="div_izquierda" class="col-lg-4 me-3 mt-2" style="height:80vh;padding:5px;"> 
 
                 <input type="hidden" id ="indVerifPlaca" value=0>
                 <input type="hidden" id ="idPlacaCrearOrden" value=0>
 
-                <div class="row"  style="border: 2px solid #333;padding:10px;">
+                <div class="row"  style="height:25vh;border: 2px solid #333;padding:10px;">
                     <div class="col-lg-5">
                         <!-- <label>Placa:</label> -->
                         <input placeholder =" Placa"class="form-control fs-2"" type="text"  id="placa123"name="placa123" onkeyup="verifiquePlaca();" value ="ale123">
@@ -60,16 +60,14 @@ class ordenView
                     <div class="col-lg-3">
                         <label id="infoBusquedaPlaca"> </label>
                     </div>
-                    <div class="mt-3  d-none d-flex" id="divBotonesSiExsite">
+                    <div class="mt-2  d-none d-flex" id="divBotonesSiExsite">
                         <button id="btnCrearOrden" class="btn btn-secondary  " onclick="formuCrearOrdenApiNuevaVersion();">Formu Crear Nueva Orden</button>
                         <button id="btnCrearOrden" class="btn btn-secondary  ms-auto" onclick="traerHistorialPlaca();">Ver Historial</button>
                     </div>
                 </div>
 
 
-                <div class="mt-3"  style="height:58vh;overflow-y:auto;border:2px solid #333;">
-                    <h3> </h3>
-                    Informacion Propietario:
+                <div id="div_div_inferior"  class=" row"  style="height:55vh;overflow-y:auto;border:2px solid #333;padding:10px;">
                     <div id="informacionPropetario"></div>
                     <div id="informacionVehiculo"></div>
                 </div>

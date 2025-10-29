@@ -41,7 +41,7 @@ echo '<table border= "1">';
 				echo '<a href="orden_detallado.php?idorden='.$ordenes['0'].'">Ver Detalle</a>';
 				echo '</h3></td>'; 
 				echo  '<td><h3>';
-				echo '<a href="../api/ordenes.php?idorden='.$ordenes['0'].'&opcion=pantallaModificarOrden">Modificar</a>';
+				echo '<a href="../api/ordenes.php?idorden='.$ordenes['0'].'&opcion=pantallaModificarOrden123">Modificar</a>';
 				echo '</h3></td>';
 				 
 				echo  '<td><h3>';

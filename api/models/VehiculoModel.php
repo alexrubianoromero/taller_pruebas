@@ -53,7 +53,7 @@ class VehiculoModel extends Conexion
 
     public function traerHistorialPlaca($placa)
     {
-        $sql = "select * from ordenes where placa = '".$placa."' order by fecha desc ";
+        $sql = "select * from ordenes where placa = '".$placa."' order by id desc ";
         // die($sql);
         $query = $this->connectMysql()->prepare($sql); 
         $query -> execute(); 

@@ -197,7 +197,7 @@
 			if(this.readyState == 4 && this.status ==200){
 				console.log(this.responseText);
                  document.getElementById("divHistorialPlaca").innerHTML  = this.responseText;
-
+				 document.getElementById("placa123").value=''; 
 				//  var idCliente = traerUltimoIdCliente();
 				//  alert ('el ide del cliente desde vehiculos '+idCliente)
 				}
